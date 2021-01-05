@@ -4,6 +4,6 @@ resource "aws_instance" "My_instance" {
     security_groups = ["default"]
     key_name = "nikhil-ec2"
     tags = {
-        Name = "Nikhil-VM01"
+        Name = "Nikhil-VM"
     }
 }
