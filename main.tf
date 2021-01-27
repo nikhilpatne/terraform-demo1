@@ -170,3 +170,75 @@ resource "aws_instance" "web-server-instance" {
 }
 
 
+
+output "server_public_ip" {
+  value = aws_eip.one.public_ip
+}
+
+output "server_private_ip" {
+  value = aws_instance.web-server-instance.private_ip
+}
+
+output "instance_id" {
+  value = aws_instance.web-server-instance.id
+}
+
+
+variable "aws_region" {}
+
+variable "vpc" {
+  type = object({
+    Name       = string
+    cidr_block = string
+  })
+  default = {
+    Name       = "Development01"
+    cidr_block = "10.0.0.0/16"
+  }
+}
+
+variable "instance_tag" {
+  type = object({
+    Name = string
+  })
+  description = "Instance tag/Name to instance"
+  default = {
+    Name = "web-server"
+  }
+}
+
+variable "instance_type" {
+  type        = string
+  description = "Instance type"
+  default     = "t2.nano"
+}
+
+variable "key_name" {
+  type        = string
+  description = "Name of the pem/json private key (Required to connect instance)"
+  default     = "nikhil-ec2"
+}
+
+variable "security_group" {
+  type        = string
+  description = "Name of the security group"
+  default     = "allow_web"
+}
+
+
+variable "ami" {
+  type        = string
+  description = "The id of the machine image (AMI) to use for the server."
+  default     = "ami-0a91cd140a1fc148a"
+
+  #   validation {
+  #     condition     = length(var.ami) > 4 && substr(var.ami, 0, 4) == "ami-"
+  #     error_message = "The image_id value must be a valid AMI id, starting with \"ami-\"."
+  #   }
+}
+
+
+
+
+
+
