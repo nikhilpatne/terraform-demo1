@@ -148,17 +148,9 @@ resource "aws_instance" "web-server-instance" {
     type        = "ssh"
     host        = self.public_ip
     user        = "ubuntu"
-    private_key = file("/home/gslab/Downloads/nikhil-ec2.pem")
+    private_key = file("nikhil-ec2.pem")
   }
 
-  provisioner "file" {
-    content     = "nikhil"
-    destination = "/home/ubuntu/nikhil.txt"
-  }
-
-  provisioner "local-exec" {
-    command = "echo ${self.public_ip} >> /home/gslab/Desktop/public_ips.txt"
-  }
 
   provisioner "remote-exec" {
     inline = [
